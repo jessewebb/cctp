@@ -93,6 +93,8 @@ def parse(tx_input):
                         "Input: '{0}'\nRegEx: '{1}'".format(line3, amount_pattern.pattern))
     amount_str = amount_match.group("amount")
     amount_str = amount_str.replace(",", "")
+    if category != "PAYMENT" and not line3.startswith("−"):
+        amount_str = "-" + amount_str
     amount = float(amount_str)
 
     return Transaction(date, card, category, location, amount, conversion)

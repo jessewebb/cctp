@@ -192,3 +192,17 @@ class ParseTests(unittest.TestCase):
         self.assertEqual(result.card, "4567********1234")
         self.assertEqual(result.amount, 100.00)
         self.assertIsNone(result.conversion)
+
+    def test_credit(self):
+        tx_input = """
+            Apr 10, 2018	Restaurants MCDONALD'S #40485 SASKATOON, SK
+            4567********1234
+            $4.56
+            """
+        result = cctp.parse(tx_input)
+        self.assertEqual(result.date, datetime.date(2018, 4, 10))
+        self.assertEqual(result.category, "Restaurants")
+        self.assertEqual(result.location, "MCDONALD'S #40485 SASKATOON, SK")
+        self.assertEqual(result.card, "4567********1234")
+        self.assertEqual(result.amount, -4.56)
+        self.assertIsNone(result.conversion)
