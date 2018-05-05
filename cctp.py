@@ -6,6 +6,10 @@ import csv
 import re
 
 
+TRANSACTIONS_FILE = "transactions.txt"
+OUTPUT_FILE = "output.txt"
+
+
 class Transaction(object):
     def __init__(self, date, card, category, location, amount, conversion):
         self.date = date
@@ -144,22 +148,19 @@ def write_payments_tab_delimited_to_file(payments, filepath):
 
 
 def main():
-    input_file = "transactions.txt"
-    output_file = "output.txt"
+    transactions, payments = parse_file(TRANSACTIONS_FILE)
 
-    transactions, payments = parse_file(input_file)
-
-    with open(output_file, "w") as f:
+    with open(OUTPUT_FILE, "w") as f:
         f.write("Transactions\n")
         f.write("============\n")
-    write_transactions_tab_delimited_to_file(transactions, output_file)
-    with open(output_file, "a") as f:
+    write_transactions_tab_delimited_to_file(transactions, OUTPUT_FILE)
+    with open(OUTPUT_FILE, "a") as f:
         f.write("\n")
 
-    with open(output_file, "a") as f:
+    with open(OUTPUT_FILE, "a") as f:
         f.write("Payments\n")
         f.write("========\n")
-    write_payments_tab_delimited_to_file(payments, output_file)
+    write_payments_tab_delimited_to_file(payments, OUTPUT_FILE)
 
 
 if __name__ == "__main__":
