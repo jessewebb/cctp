@@ -193,6 +193,20 @@ class ParseTests(unittest.TestCase):
         self.assertEqual(result.amount, 100.00)
         self.assertIsNone(result.conversion)
 
+    def test_health_and_education(self):
+        tx_input = """
+            May 17, 2018	Health & Education PHARMACY NUMBER ONE SASKATOON, SK
+            4567********1234
+            −$53.21
+            """
+        result = cctp.parse(tx_input)
+        self.assertEqual(result.date, datetime.date(2018, 5, 17))
+        self.assertEqual(result.category, "Health & Education")
+        self.assertEqual(result.location, "PHARMACY NUMBER ONE SASKATOON, SK")
+        self.assertEqual(result.card, "4567********1234")
+        self.assertEqual(result.amount, 53.21)
+        self.assertIsNone(result.conversion)
+
     def test_credit(self):
         tx_input = """
             Apr 10, 2018	Restaurants MCDONALD'S #40485 SASKATOON, SK
