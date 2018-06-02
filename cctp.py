@@ -50,7 +50,8 @@ CATEGORIES = [
     "Hotels, Entertainment, and Recreation",
     "Restaurants",
     "Retail and Grocery",
-    "Transportation"
+    "Transportation",
+    "Health & Education"
 ]
 
 
