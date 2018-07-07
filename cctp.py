@@ -33,7 +33,7 @@ class Transaction(object):
         return not self.__eq__(other)
 
     def __repr__(self):
-        my_attrs = sorted(vars(self).iteritems())
+        my_attrs = sorted(vars(self).items())
         my_attrs = ("{0}={1}".format(attr_name, attr_val) for attr_name, attr_val in my_attrs)
         return "Transaction({attrs})".format(attrs=",".join(my_attrs))
 
@@ -130,7 +130,8 @@ def write_transactions_tab_delimited_to_file(transactions, filepath):
     with open(filepath, "a") as f:
         fieldnames = ["date", "amount", "card", "location", "category", "conversion"]
         writer = csv.DictWriter(f, delimiter='\t', lineterminator='\n', fieldnames=fieldnames)
-        tx_dicts = [{a: v for a, v in sorted((a, v) for a, v in vars(t).iteritems() if a in fieldnames)} for t in transactions]
+        tx_dicts = [{a: v for a, v in sorted((a, v) for a, v in vars(t).items() if a in fieldnames)}
+                    for t in transactions]
 
         writer.writeheader()
         for tx_dict in tx_dicts:
@@ -141,7 +142,7 @@ def write_payments_tab_delimited_to_file(payments, filepath):
     with open(filepath, "a") as f:
         fieldnames = ["date", "amount", "card"]
         writer = csv.DictWriter(f, delimiter='\t', lineterminator='\n', fieldnames=fieldnames)
-        p_dicts = [{a: v for a, v in sorted((a, v) for a, v in vars(p).iteritems() if a in fieldnames)} for p in payments]
+        p_dicts = [{a: v for a, v in sorted((a, v) for a, v in vars(p).items() if a in fieldnames)} for p in payments]
 
         writer.writeheader()
         for p_dict in p_dicts:
