@@ -109,7 +109,7 @@ def parse_file(filepath):
     tx_lines = []
     transactions = []
     payments = []
-    with open(filepath, "r") as f:
+    with open(filepath, "r", encoding="utf-8") as f:
         line = f.readline()
         while line:
             tx_lines.append(line)
