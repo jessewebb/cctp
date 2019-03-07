@@ -220,3 +220,17 @@ class ParseTests(unittest.TestCase):
         self.assertEqual(result.card, "4567********1234")
         self.assertEqual(result.amount, -4.56)
         self.assertIsNone(result.conversion)
+
+    def test_cash_back(self):
+        tx_input = """
+            Dec 25, 2018	CASH BACK AWARDED
+            4567********1234
+            $543.21
+            """
+        result = cctp.parse(tx_input)
+        self.assertEqual(result.date, datetime.date(2018, 12, 25))
+        self.assertEqual(result.category, "CASH BACK AWARDED")
+        self.assertIsNone(result.location)
+        self.assertEqual(result.card, "4567********1234")
+        self.assertEqual(result.amount, 543.21)
+        self.assertIsNone(result.conversion)

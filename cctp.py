@@ -51,7 +51,8 @@ CATEGORIES = [
     "Restaurants",
     "Retail and Grocery",
     "Transportation",
-    "Health & Education"
+    "Health & Education",
+    "CASH BACK AWARDED"
 ]
 
 
@@ -85,7 +86,7 @@ def parse(tx_input):
         line1 = line1[0:len(line1) - len(conversion) - 1]
 
     # location
-    location = line1 if category != "PAYMENT" else None
+    location = line1 if category != "PAYMENT" and category != "CASH BACK AWARDED" else None
 
     # card
     card = line2
@@ -98,7 +99,8 @@ def parse(tx_input):
                         "Input: '{0}'\nRegEx: '{1}'".format(line3, amount_pattern.pattern))
     amount_str = amount_match.group("amount")
     amount_str = amount_str.replace(",", "")
-    if category != "PAYMENT" and not (line3.startswith("-") or line3.startswith("−")):
+    if category != "PAYMENT" and category != "CASH BACK AWARDED"\
+            and not (line3.startswith("-") or line3.startswith("−")):
         amount_str = "-" + amount_str
     amount = float(amount_str)
 
@@ -116,7 +118,7 @@ def parse_file(filepath):
 
             if len(tx_lines) == 3:
                 tx = parse("".join(tx_lines))
-                if tx.category == "PAYMENT":
+                if tx.category == "PAYMENT" or tx.category == "CASH BACK AWARDED":
                     payments.append(tx)
                 else:
                     transactions.append(tx)
