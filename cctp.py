@@ -52,7 +52,8 @@ CATEGORIES = [
     "Retail and Grocery",
     "Transportation",
     "Health & Education",
-    "CASH BACK AWARDED"
+    "CASH BACK AWARDED",
+    "CASH INTEREST"
 ]
 
 
