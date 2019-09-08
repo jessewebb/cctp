@@ -73,7 +73,7 @@ def parse(tx_input):
     if not category:
         raise Exception("Unknown Category!\n"
                         "Input: '{0}'".format(line1))
-    line1 = line1[len(category) + 1:]
+    line1 = line1[len(category):].lstrip()
 
     # conversion
     conversion = None

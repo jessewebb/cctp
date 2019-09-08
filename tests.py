@@ -234,3 +234,17 @@ class ParseTests(unittest.TestCase):
         self.assertEqual(result.card, "4567********1234")
         self.assertEqual(result.amount, 543.21)
         self.assertIsNone(result.conversion)
+
+    def test_no_space_after_category(self):
+        tx_input = """
+            Aug 19, 2019	Retail and GroceryTENDA CANADA RICHMOND HILL, ON
+            4567********1234
+            −$54.96
+            """
+        result = cctp.parse(tx_input)
+        self.assertEqual(result.date, datetime.date(2019, 8, 19))
+        self.assertEqual(result.category, "Retail and Grocery")
+        self.assertEqual(result.location, "TENDA CANADA RICHMOND HILL, ON")
+        self.assertEqual(result.card, "4567********1234")
+        self.assertEqual(result.amount, 54.96)
+        self.assertIsNone(result.conversion)
