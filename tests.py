@@ -249,6 +249,21 @@ class ParseTests(unittest.TestCase):
         self.assertEqual(result.amount, 54.96)
         self.assertIsNone(result.conversion)
 
+    def test_cash_back_2020(self):
+        tx_input = """
+            Dec 25, 2020	Other TransactionsCASHBACK/REMISE EN ARGENT
+            4567********1234
+            $987.65
+            """
+        result = cctp.parse(tx_input)
+        self.assertEqual(result.date, datetime.date(2020, 12, 25))
+        self.assertEqual(result.category, "CASH BACK AWARDED")
+        self.assertIsNone(result.location)
+        self.assertEqual(result.card, "4567********1234")
+        self.assertEqual(result.amount, 987.65)
+        self.assertIsNone(result.conversion)
+
+
     def test_eligible_for_installments(self):
         tx_input = """
             Jan 13, 2021
