@@ -53,7 +53,8 @@ CATEGORIES = [
     "Transportation",
     "Health & Education",
     "CASH BACK AWARDED",
-    "CASH INTEREST"
+    "CASH INTEREST",
+    "Other Transactions"
 ]
 
 
