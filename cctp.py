@@ -93,7 +93,7 @@ def parse(tx_input):
         line1 = line1[0:len(line1) - len(conversion) - 1]
 
     # location
-    location = line1 if category != "PAYMENT" and category != "CASH BACK AWARDED" else None
+    location = line1 if category not in ("PAYMENT", "CASH BACK AWARDED", "CASH INTEREST") else None
 
     # card
     card = line2
