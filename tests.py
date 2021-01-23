@@ -248,3 +248,19 @@ class ParseTests(unittest.TestCase):
         self.assertEqual(result.card, "4567********1234")
         self.assertEqual(result.amount, 54.96)
         self.assertIsNone(result.conversion)
+
+    def test_eligible_for_installments(self):
+        tx_input = """
+            Jan 13, 2021
+            ELIGIBLE FOR INSTALLMENTS
+            Retail and GrocerySOBEYS SASKATOON, SK
+            4567********1234
+            −$543.21
+            """
+        result = cctp.parse(tx_input)
+        self.assertEqual(result.date, datetime.date(2021, 1, 13))
+        self.assertEqual(result.category, "Retail and Grocery")
+        self.assertEqual(result.location, "SOBEYS SASKATOON, SK")
+        self.assertEqual(result.card, "4567********1234")
+        self.assertEqual(result.amount, 543.21)
+        self.assertIsNone(result.conversion)

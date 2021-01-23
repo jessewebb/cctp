@@ -60,6 +60,11 @@ CATEGORIES = [
 
 def parse(tx_input):
     tx_input = tx_input.strip()
+
+    print("tx_input = " + tx_input)
+    tx_input = re.sub(r"""\s*ELIGIBLE FOR INSTALLMENTS\s*""", "\t", tx_input, flags=re.MULTILINE)
+    print("tx_input2 = " + tx_input)
+
     line1, line2, line3 = tx_input.split("\n")
     line1 = line1.strip()
     line2 = line2.strip()
