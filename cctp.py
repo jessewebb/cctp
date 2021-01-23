@@ -60,8 +60,6 @@ CATEGORIES = [
 def parse(tx_input):
     tx_input = tx_input.strip()
 
-    tx_input = re.sub(r"""\s*ELIGIBLE FOR INSTALLMENTS\s*""", "\t", tx_input, flags=re.MULTILINE)
-
     # hack for CASH BACK 2020
     tx_input = tx_input.replace("Other TransactionsCASHBACK/REMISE EN ARGENT", "CASH BACK AWARDED")
 
@@ -123,8 +121,12 @@ def parse_file(filepath):
         while line:
             tx_lines.append(line)
 
-            if len(tx_lines) == 3:
-                tx = parse("".join(tx_lines))
+            tx_text = "".join(tx_lines)
+            tx_text = re.sub(r"""\s*ELIGIBLE FOR INSTALLMENTS\s*""", "\t", tx_text, flags=re.MULTILINE)
+            is_complete_tx_text = tx_text.strip().count('\n') == 2
+
+            if is_complete_tx_text:
+                tx = parse(tx_text)
                 if tx.category == "PAYMENT" or tx.category == "CASH BACK AWARDED":
                     payments.append(tx)
                 else:
